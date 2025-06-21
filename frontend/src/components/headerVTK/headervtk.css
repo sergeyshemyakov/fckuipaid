@@ -1,0 +1,22 @@
+.header-container {
+    display: flex;
+    flex-direction: row;
+    margin: 0.75rem 2rem;
+}
+
+/* .company-name-container{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+} */
+
+.header-title {
+    width: 24rem;
+    padding: 0.5 em;
+    font-size: 2rem;
+}
+
+
+.hearder-underline {
+    border: 1px solid black;
+}
