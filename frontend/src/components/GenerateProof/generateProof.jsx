@@ -295,7 +295,8 @@ export default function GenerateProof() {
                 variant="subtle"
                 size={"xl"}
                 width={"800px"}
-                height={"100px"}
+                height={"200px"}
+                overflow={'scroll'}
                 placeholder="Proof text will be available here..."
               ></Textarea>
             </Box>

@@ -27,7 +27,8 @@ const handleTextAreaChange = (event)=> {
               variant="subtle"
               size={"xl"}
               width={"800px"}
-              height={"100px"}
+              height={"200px"}
+              overflow={'scroll'}
               placeholder="paste the signature to verify ..."
               onChange={(event)=>handleTextAreaChange(event)}
             ></Textarea>
