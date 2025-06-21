@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Center,
   Box,
@@ -26,6 +26,7 @@ import {
   SMARTCONTRACTABI,
   ERC20ADDRESS,
   SMARTCONTRACTADDRESS,
+  zkKey
 } from "./contract.js";
 import { parseUnits } from "viem";
 
@@ -34,6 +35,8 @@ export default function GenerateProof() {
   const [step, setStep] = React.useState("idle"); //'idle' | 'approving' | 'paying'
   const [approveTxHash, setApproveTxHash] = React.useState(null); // `0x${string}` | null
   const [payTxHash, setPayTxHash] = React.useState(null);
+
+  const [zkProofKey , setZkProofKey] = React.useState(null);
   
 
   const [monthSelected, setMonthSelected] = React.useState(6);
@@ -48,6 +51,7 @@ export default function GenerateProof() {
   const handleSign = async() => {
     const signData = await signMessageAsync({ message: 'This message proofs your ownership of your address in zk proof' })
     console.log("signature",signData);
+    setZkProofKey(zkKey);
   }
 
 
@@ -298,6 +302,7 @@ export default function GenerateProof() {
                 height={"200px"}
                 overflow={'scroll'}
                 placeholder="Proof text will be available here..."
+                value={zkProofKey}
               ></Textarea>
             </Box>
           </Center>
