@@ -1,0 +1,3 @@
+[submodule "fckuipaid/lib/openzeppelin-contracts"]
+	path = fckuipaid/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
