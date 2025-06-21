@@ -50,39 +50,16 @@ sol! {
     }
 }
 
-sol!(
-    #[sol(rpc, all_derives)]
-    "../contracts/src/ICounter.sol" // TODO: paste the path to the correct contract
-);
-
 /// Simple program to create a proof to increment the Counter contract.
 #[derive(Parser)]
 struct Args {
-    /// Ethereum private key
-    #[arg(long, env = "ETH_WALLET_PRIVATE_KEY")]
-    eth_wallet_private_key: PrivateKeySigner,
-
     /// Arbitrum Sepolia RPC endpoint URL
     #[arg(long, env = "ARB_RPC_URL")]
     arb_rpc_url: Url,
 
-    /// Beacon API endpoint URL
-    ///
-    /// Steel uses a beacon block commitment instead of the execution block.
-    /// This allows proofs to be validated using the EIP-4788 beacon roots contract.
-    #[cfg(any(feature = "beacon", feature = "history"))]
-    #[arg(long, env = "BEACON_API_URL")]
-    beacon_api_url: Url,
-
     /// Arbitrum sepolia block to use as the state for the contract call
     #[arg(long, env = "EXECUTION_BLOCK", default_value_t = BlockNumberOrTag::Parent)]
     execution_block: BlockNumberOrTag,
-
-    /// Ethereum block to use for the beacon block commitment.
-    /// TODO: do we need to remove it since everything we want to know is on L2?
-    #[cfg(feature = "history")]
-    #[arg(long, env = "COMMITMENT_BLOCK")]
-    commitment_block: BlockNumberOrTag,
 
     /// Address of the Payment Receiver contract
     #[arg(long)]
@@ -110,17 +87,6 @@ async fn main() -> Result<()> {
     // Parse the command line arguments.
     let args = Args::try_parse()?;
 
-    // Create an alloy provider for that private key and URL.
-    // let wallet = EthereumWallet::from(args.eth_wallet_private_key);
-    // let provider = ProviderBuilder::new()
-    //     .wallet(wallet)
-    //     .connect_http(args.eth_rpc_url);
-
-    // #[cfg(feature = "beacon")]
-    // log::info!("Beacon commitment to block {}", args.execution_block);
-    // #[cfg(feature = "history")]
-    // log::info!("History commitment to block {}", args.commitment_block);
-
     // Create Arbitrum Sepolia chain spec
     let arb_sepolia_chain_spec = ChainSpec::new_single(421614, SpecId::CANCUN);
 
@@ -129,16 +95,6 @@ async fn main() -> Result<()> {
         .chain_spec(&arb_sepolia_chain_spec)
         .build()
         .await?;
-
-    // let builder = EthEvmEnv::builder()
-    //     .provider(provider.clone())
-    //     .block_number_or_tag(args.execution_block);
-    // #[cfg(any(feature = "beacon", feature = "history"))]
-    // let builder = builder.beacon_api(args.beacon_api_url);
-    // #[cfg(feature = "history")]
-    // let builder = builder.commitment_block_number_or_tag(args.commitment_block);
-
-    // let mut env = builder.chain_spec(&ETH_SEPOLIA_CHAIN_SPEC).build().await?;
 
     // Prepare the function call
     let call = PaymentReceiver::hasPaidCall {
@@ -190,29 +146,6 @@ async fn main() -> Result<()> {
 
     // ABI encode the seal.
     let seal = encode_seal(&receipt).context("invalid receipt")?;
-
-    // // Create an alloy instance of the Counter contract.
-    // let contract = ICounter::new(args.counter_address, &provider);
-
-    // // Call ICounter::imageID() to check that the contract has been deployed correctly.
-    // let contract_image_id = Digest::from(contract.imageID().call().await?.0);
-    // ensure!(contract_image_id == BALANCE_OF_ID.into());
-
-    // // Call the increment function of the contract and wait for confirmation.
-    // log::info!(
-    //     "Sending Tx calling {} Function of {:#}...",
-    //     ICounter::incrementCall::SIGNATURE,
-    //     contract.address()
-    // );
-    // let call_builder = contract.increment(receipt.journal.bytes.into(), seal.into());
-    // log::debug!("Send {} {}", contract.address(), call_builder.calldata());
-    // let pending_tx = call_builder.send().await?;
-    // let tx_hash = *pending_tx.tx_hash();
-    // let receipt = pending_tx
-    //     .get_receipt()
-    //     .await
-    //     .with_context(|| format!("transaction did not confirm: {}", tx_hash))?;
-    // ensure!(receipt.status(), "transaction failed: {}", tx_hash);
 
     Ok(())
 }
