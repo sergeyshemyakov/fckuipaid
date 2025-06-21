@@ -1,0 +1,30 @@
+.proof-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0.75rem 2rem;
+    gap: 2rem;
+    padding: 1rem;
+}
+.subscription-holder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.period-holder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 4rem;
+}
+
+.buttons-holder{
+     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 4rem;
+
+}
