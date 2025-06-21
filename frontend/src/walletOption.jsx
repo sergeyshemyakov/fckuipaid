@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useConnect } from "wagmi";
+import { Button , Image} from "@chakra-ui/react"
+import WalletLogo from "./assets/wallet.svg"
 
 export function WalletOptions() {
   const { connectors, connect } = useConnect();
@@ -24,8 +26,8 @@ function WalletOption({ connector, onClick }) {
   }, [connector]);
 
   return (
-    <button disabled={!ready} onClick={onClick}>
-      {connector.name}
-    </button>
+    <Button disabled={!ready} onClick={onClick} colorPalette="teal" variant="subtle">
+      <Image src={WalletLogo} alt="wallet-logo" /> {connector.name}
+    </Button>
   );
 }
