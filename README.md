@@ -1,3 +1,5 @@
+![](cover.png)
+
 # fckuipaid
 
 Fckuipaid project from zkHack Berlin 2025: Anonymized login lib for paywalled web2 services
