@@ -18,6 +18,8 @@ use risc0_steel::{
     host::BlockNumberOrTag,
     Commitment, Contract,
 };
+use revm_primitives::hardfork::SpecId;
+use risc0_steel::config::ChainSpec;
 use serde::{Deserialize, Serialize};
 use std::time::Duration;
 use url::Url;
@@ -230,16 +232,12 @@ impl ProofGenerator {
         let arb_rpc_url = std::env::var("ARB_RPC_URL")
             .context("ARB_RPC_URL environment variable not set")?;
 
-        Ok(Self {
-            service_name,
-            arb_rpc_url: Url::parse(&arb_rpc_url).context("Invalid RPC URL")?,
-        })
-
         let sepolia_rpc_url = std::env::var("SEPOLIA_RPC_URL")
             .context("SEPOLIA_RPC_URL environment variable not set")?;
 
         Ok(Self {
             service_name,
+            arb_rpc_url: Url::parse(&arb_rpc_url).context("Invalid RPC URL")?,
             sepolia_rpc_url: Url::parse(&sepolia_rpc_url).context("Invalid RPC URL")?,
         })
     }

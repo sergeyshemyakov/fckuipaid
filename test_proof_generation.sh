@@ -18,10 +18,10 @@ HEALTH_ENDPOINT="$SERVER_URL/health"
 PROOF_ENDPOINT="$SERVER_URL/generate-proof"
 
 # Test data
-TEST_USER_ADDRESS="0x742d35Cc6634C0532925a3b8D8d6C0C0e4B5b4e6"
-TEST_PAYMENT_RECEIVER="0x1234567890123456789012345678901234567890"
-TEST_MONTH=202412
-TEST_SIGNATURE="0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234"
+TEST_USER_ADDRESS="0x170f6F7b0925CF1447BAAF25a5AE61253EF31c1B"
+TEST_PAYMENT_RECEIVER="0x6fEDEb0B4942A8b438AFE68ba7c8Af4637c41903"
+TEST_MONTH=72025
+TEST_SIGNATURE="0x184bdcdfb9db09b6f55c7bcdd3907e2a8555d599b63289fe1fe014864fe605bf01a0f53bcbc539f2070480162f745c847e77e4bcd8821a39ba416945c1b1666c1b"
 
 # Function to print colored output
 print_status() {
@@ -115,12 +115,12 @@ test_proof_generation() {
     print_status "Sending request to $PROOF_ENDPOINT"
     print_status "Request data: $request_data"
     
-    local response=$(curl -s -w "\n%{http_code}" -X POST "$PROOF_ENDPOINT" \
+    local response=$(curl -v -w "\n%{http_code}" -X POST "$PROOF_ENDPOINT" \
         -H "Content-Type: application/json" \
         -d "$request_data")
     
     local http_code=$(echo "$response" | tail -n1)
-    local response_body=$(echo "$response" | head -n -1)
+    local response_body=$(echo "$response" | sed '$d')
     
     print_status "HTTP Status Code: $http_code"
     print_status "Response: $response_body"
