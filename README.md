@@ -48,7 +48,9 @@ Contains a host and guest programs for generating the correct proof locally (bas
 
 Contains a rust server to interact with the frontend. It implements a request to boundless market to generate a proof for particular valid values (so the proof could be actually produced). The market is called offchain (we have provided a deposit on Ethereum Sepolia), the program is submitted via IPFS, the input is submitted directly with the request. For the reasons that we have not completely understood, we haven't managed to get a successful response (also no staked funds were spent).
 
-The latest error that we get is `call 'hasPaid(address,uint64)' failed: EVM error: header validation error: `excess_blob_gas` not set: `excess_blob_gas` not set` when trying to do the preflight step.
+~~The latest error that we get is `call 'hasPaid(address,uint64)' failed: EVM error: header validation error: excess_blob_gas not set: excess_blob_gas not set` when trying to do the preflight step.~~ (was fixed)
+
+The latest error that we get is `Error cannot upload input using StorageLayer with no storage_provider; input length of 15396 bytes exceeds inline limit of 2048 bytes`, we don't have time to update the setup to send program inputs over IPFS (`with_input_url()`).
 
 # What still needs to be done
 

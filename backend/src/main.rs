@@ -90,7 +90,7 @@ impl ProofGenerator {
             .block_number_or_tag(BlockNumberOrTag::Latest);
 
         // Create Arbitrum Sepolia chain spec
-        let arb_sepolia_chain_spec = ChainSpec::new_single(421614, SpecId::CANCUN);
+        let arb_sepolia_chain_spec = ChainSpec::new_single(421614, SpecId::SHANGHAI);
 
         let mut env = builder.chain_spec(&arb_sepolia_chain_spec).build().await?;
 
