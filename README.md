@@ -48,6 +48,8 @@ Contains a host and guest programs for generating the correct proof locally (bas
 
 Contains a rust server to interact with the frontend. It implements a request to boundless market to generate a proof for particular valid values (so the proof could be actually produced). The market is called offchain (we have provided a deposit on Ethereum Sepolia), the program is submitted via IPFS, the input is submitted directly with the request. For the reasons that we have not completely understood, we haven't managed to get a successful response (also no staked funds were spent).
 
+The latest error that we get is `call 'hasPaid(address,uint64)' failed: EVM error: header validation error: `excess_blob_gas` not set: `excess_blob_gas` not set` when trying to do the preflight step.
+
 # What still needs to be done
 
 1. Fix backed communication to boundless market, debug proof generation
