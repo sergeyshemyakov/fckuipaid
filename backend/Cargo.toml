@@ -1,0 +1,57 @@
+[package]
+name = "fckuipaid-backend"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+# ZK and Blockchain
+boundless-market = { workspace = true }
+alloy = { workspace = true }
+alloy-primitives = { workspace = true }
+risc0-zkvm = { workspace = true }
+risc0-steel = { workspace = true, features = ["host"] }
+risc0-ethereum-contracts = { workspace = true }
+url = { workspace = true }
+
+# Web framework
+axum = { workspace = true }
+tokio = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Error handling
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# Logging
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# Utilities
+dotenvy = { workspace = true }
+uuid = { workspace = true }
+hex = { workspace = true }
+bincode = { workspace = true }
+sha2 = { workspace = true }
+sha3 = { workspace = true }
+clap = { workspace = true }
+log = { workspace = true }
+revm-primitives = { workspace = true }
+
+
+# HTTP client
+reqwest = { workspace = true }
+
+# Async utilities
+futures = "0.3"
+
+[build-dependencies]
+risc0-build = { workspace = true }
+
+[[bin]]
+name = "fckuipaid-backend"
+path = "src/main.rs" 
