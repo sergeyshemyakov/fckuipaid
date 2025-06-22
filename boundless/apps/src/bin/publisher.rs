@@ -47,6 +47,7 @@ sol! {
     /// Data committed to by the guest.
     struct Journal {
         Commitment commitment;
+        uint64 month;
     }
 }
 
